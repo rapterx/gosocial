@@ -10,6 +10,8 @@ import (
 	"github.com/rapterx/GoSocial/internal/store"
 )
 
+const version = "0.0.1"
+
 	func main() {
 
 		err := godotenv.Load()
@@ -26,6 +28,7 @@ import (
 				maxIdleConns: env.GetInt("DB_MAX_IDLE_CONNS", 30),
 				maxIdleTime: env.GetString("DB_MAX_IDLE_TIME", "15m"),
 			},
+			env: env.GetString("ENV", "development"),
 		}
 
 		db, err := db.New(

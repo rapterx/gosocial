@@ -1,14 +1,14 @@
-	package main
+package main
 
-	import (
-		"log"
-		"net/http"
-		"time"
+import (
+	"log"
+	"net/http"
+	"time"
 
-		"github.com/go-chi/chi/v5"
-		"github.com/go-chi/chi/v5/middleware"
-		"github.com/rapterx/GoSocial/internal/store"
-	)
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/rapterx/GoSocial/internal/store"
+)
 
 	type application struct {
 		config config
@@ -18,6 +18,7 @@
 	type config struct {
 		addr string
 		db    dbConfig
+		env string
 	}
 
 	type dbConfig struct {
@@ -29,6 +30,7 @@
 
 	func (app *application) mount() http.Handler {
 		r := chi.NewRouter()
+		r.Get("/health", app.healthCheckHandler)
 		
 		r.Use(middleware.Recoverer)
 		r.Use(middleware.Logger)
